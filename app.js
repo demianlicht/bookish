@@ -1,4 +1,4 @@
-const supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+const supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
 
 const loginView = document.getElementById('login-view');
 const appView = document.getElementById('app-view');
@@ -28,7 +28,7 @@ let allBooks = [];
 // ---- Auth ----
 
 async function checkSession() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await supabaseClient.auth.getSession();
   if (session) {
     showApp();
   } else {
@@ -52,7 +52,7 @@ loginForm.addEventListener('submit', async (e) => {
   loginError.classList.add('hidden');
   const email = document.getElementById('login-email').value.trim();
   const password = document.getElementById('login-password').value;
-  const { error } = await supabase.auth.signInWithPassword({ email, password });
+  const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
   if (error) {
     loginError.textContent = error.message;
     loginError.classList.remove('hidden');
@@ -63,14 +63,14 @@ loginForm.addEventListener('submit', async (e) => {
 });
 
 logoutBtn.addEventListener('click', async () => {
-  await supabase.auth.signOut();
+  await supabaseClient.auth.signOut();
   showLogin();
 });
 
 // ---- Data loading ----
 
 async function loadBooks() {
-  const { data, error } = await supabase
+  const { data, error } = await supabaseClient
     .from('books')
     .select('*')
     .order('title', { ascending: true });
@@ -239,8 +239,8 @@ bookForm.addEventListener('submit', async (e) => {
 
   const id = bookIdField.value;
   const { error } = id
-    ? await supabase.from('books').update(payload).eq('id', id)
-    : await supabase.from('books').insert(payload);
+    ? await supabaseClient.from('books').update(payload).eq('id', id)
+    : await supabaseClient.from('books').insert(payload);
 
   if (error) {
     formError.textContent = error.message;
@@ -254,7 +254,7 @@ bookForm.addEventListener('submit', async (e) => {
 
 async function deleteBook(book) {
   if (!confirm(`Delete "${book.title}"?`)) return;
-  const { error } = await supabase.from('books').delete().eq('id', book.id);
+  const { error } = await supabaseClient.from('books').delete().eq('id', book.id);
   if (error) {
     alert(`Failed to delete: ${error.message}`);
     return;
