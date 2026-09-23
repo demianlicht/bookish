@@ -1,0 +1,208 @@
+:root {
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --text: #2b2620;
+  --muted: #7a7268;
+  --border: #e8e2d8;
+  --accent: #6b5b4c;
+  --accent-hover: #55483c;
+  --error: #b3413a;
+  --radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.hidden { display: none !important; }
+
+h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 500;
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+/* Login */
+#login-view {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 340px;
+  text-align: center;
+}
+
+.login-card h1 { margin-bottom: 1.5rem; }
+
+/* App shell */
+#app-view {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+
+#search-input {
+  flex: 1 1 240px;
+}
+
+#category-filter { flex: 0 0 auto; }
+
+/* Form controls */
+input, select, button {
+  font: inherit;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.75rem;
+  background: var(--surface);
+  color: var(--text);
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  cursor: pointer;
+}
+
+button:hover { background: var(--accent-hover); }
+
+button.secondary {
+  background: transparent;
+  color: var(--text);
+}
+
+button.secondary:hover { background: var(--bg); }
+
+.link-btn {
+  background: none;
+  border: none;
+  color: var(--muted);
+  padding: 0;
+  text-decoration: underline;
+}
+
+.link-btn:hover { color: var(--text); background: none; }
+
+form label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 0.9rem;
+}
+
+form input { width: 100%; margin-top: 0.3rem; }
+
+.error {
+  color: var(--error);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+/* Book list */
+.category-group {
+  margin-bottom: 2rem;
+}
+
+.category-group h2 {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.book-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.book-row:last-child { border-bottom: none; }
+
+.book-info .title { font-weight: 600; }
+.book-info .author { color: var(--muted); font-size: 0.9rem; }
+
+.book-actions { display: flex; gap: 0.4rem; flex-shrink: 0; }
+
+.book-actions button {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--border);
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.book-actions button:hover { color: var(--text); background: var(--bg); }
+
+.empty {
+  color: var(--muted);
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+  width: 100%;
+  max-width: 420px;
+}
+
+.modal-content h2 { margin-top: 0; }
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}

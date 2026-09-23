@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Libros en Casa</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Login -->
+  <section id="login-view" class="view">
+    <div class="login-card">
+      <h1>Libros en Casa</h1>
+      <form id="login-form">
+        <label>
+          Email
+          <input type="email" id="login-email" required autocomplete="username" />
+        </label>
+        <label>
+          Password
+          <input type="password" id="login-password" required autocomplete="current-password" />
+        </label>
+        <button type="submit">Log in</button>
+        <p id="login-error" class="error hidden"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Main app -->
+  <section id="app-view" class="view hidden">
+    <header>
+      <h1>Libros en Casa</h1>
+      <button id="logout-btn" class="link-btn">Log out</button>
+    </header>
+
+    <div class="toolbar">
+      <input type="search" id="search-input" placeholder="Search by title or author…" />
+      <select id="category-filter">
+        <option value="">All categories</option>
+      </select>
+      <button id="add-book-btn">+ Add book</button>
+    </div>
+
+    <div id="book-list"></div>
+    <p id="empty-state" class="empty hidden">No books match your search.</p>
+  </section>
+
+  <!-- Add/Edit modal -->
+  <div id="book-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="modal-title">Add book</h2>
+      <form id="book-form">
+        <input type="hidden" id="book-id" />
+        <label>
+          Title
+          <input type="text" id="book-title" required />
+        </label>
+        <label>
+          Author
+          <input type="text" id="book-author" required />
+        </label>
+        <label>
+          Category
+          <input type="text" id="book-category" list="category-options" required />
+          <datalist id="category-options"></datalist>
+        </label>
+        <div class="modal-actions">
+          <button type="button" id="cancel-btn" class="secondary">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+        <p id="form-error" class="error hidden"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="vendor/supabase.min.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
