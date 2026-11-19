@@ -45,6 +45,7 @@ function showApp() {
   loginView.classList.add('hidden');
   appView.classList.remove('hidden');
   loadBooks();
+  loadVinyl(); // defined in vinyl.js
 }
 
 loginForm.addEventListener('submit', async (e) => {

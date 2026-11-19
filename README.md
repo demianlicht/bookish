@@ -9,6 +9,7 @@ frontend + Supabase (Postgres + Auth) backend, no server to run or maintain.
 - Live search across title and author
 - Category filter
 - Add / edit / delete books
+- **Vinyl tab**: record collection shown as sleeve-and-disc cards, with search and genre filter
 - Single login gate (Supabase Auth) — only you can view or edit
 
 ## One-time setup
@@ -17,6 +18,7 @@ frontend + Supabase (Postgres + Auth) backend, no server to run or maintain.
 2. **Run the schema**: open the SQL Editor in your Supabase project, paste the
    contents of `schema.sql`, and run it.
 3. **Seed your books**: run `seed.sql` the same way to load the full collection.
+   Then run `schema-vinyl.sql` to add the vinyl records table.
 4. **Create yourself a user**: Supabase dashboard → Authentication → Users →
    Add user. Enter your email and a password. (There's no signup screen in
    the app on purpose — this is a single-user app.)
@@ -51,5 +53,5 @@ Then open the printed URL and log in with the user you created in step 4.
 
 ## Adding more books later
 
-Use the "+ Add book" button in the app, or insert rows directly into the
+Use the "+ Add book" / "+ Add record" buttons in the app, or insert rows directly into the
 `books` table from the Supabase dashboard/SQL editor.

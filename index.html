@@ -34,16 +34,36 @@
       <button id="logout-btn" class="link-btn">Log out</button>
     </header>
 
-    <div class="toolbar">
-      <input type="search" id="search-input" placeholder="Search by title or author…" />
-      <select id="category-filter">
-        <option value="">All categories</option>
-      </select>
-      <button id="add-book-btn">+ Add book</button>
+    <nav class="tabs" role="tablist">
+      <button type="button" class="tab active" id="tab-books" role="tab" aria-selected="true" data-tab="books">Books</button>
+      <button type="button" class="tab" id="tab-vinyl" role="tab" aria-selected="false" data-tab="vinyl">Vinyl</button>
+    </nav>
+
+    <div id="books-panel">
+      <div class="toolbar">
+        <input type="search" id="search-input" placeholder="Search by title or author…" />
+        <select id="category-filter">
+          <option value="">All categories</option>
+        </select>
+        <button id="add-book-btn">+ Add book</button>
+      </div>
+
+      <div id="book-list"></div>
+      <p id="empty-state" class="empty hidden">No books match your search.</p>
     </div>
 
-    <div id="book-list"></div>
-    <p id="empty-state" class="empty hidden">No books match your search.</p>
+    <div id="vinyl-panel" class="hidden">
+      <div class="toolbar">
+        <input type="search" id="vinyl-search" placeholder="Search by title or artist…" />
+        <select id="vinyl-genre-filter">
+          <option value="">All genres</option>
+        </select>
+        <button id="add-vinyl-btn">+ Add record</button>
+      </div>
+
+      <div id="vinyl-grid" class="vinyl-grid"></div>
+      <p id="vinyl-empty" class="empty hidden">No records match your search.</p>
+    </div>
   </section>
 
   <!-- Add/Edit modal -->
@@ -74,8 +94,45 @@
     </div>
   </div>
 
+  <!-- Add/Edit vinyl modal -->
+  <div id="vinyl-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="vinyl-modal-title">Add record</h2>
+      <form id="vinyl-form">
+        <input type="hidden" id="vinyl-id" />
+        <label>
+          Title
+          <input type="text" id="vinyl-title" required />
+        </label>
+        <label>
+          Artist
+          <input type="text" id="vinyl-artist" required />
+        </label>
+        <div class="form-row">
+          <label>
+            Year
+            <input type="number" id="vinyl-year" min="1877" max="2100" step="1" />
+          </label>
+          <label>
+            Genre
+            <input type="text" id="vinyl-genre" list="vinyl-genre-options" />
+            <datalist id="vinyl-genre-options"></datalist>
+          </label>
+        </div>
+        <div class="modal-actions">
+          <button type="button" id="vinyl-cancel-btn" class="secondary">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+        <p id="vinyl-form-error" class="error hidden"></p>
+      </form>
+    </div>
+  </div>
+
   <script src="vendor/supabase.min.js"></script>
   <script src="config.js"></script>
+  <!-- vinyl.js loads before app.js: it only defines window.loadVinyl and
+       uses supabaseClient lazily, so app.js can call it from showApp(). -->
+  <script src="vinyl.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
