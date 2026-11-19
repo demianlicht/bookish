@@ -70,11 +70,13 @@ header {
   margin-bottom: 1.75rem;
 }
 
-#search-input {
+#search-input,
+#vinyl-search {
   flex: 1 1 240px;
 }
 
-#category-filter { flex: 0 0 auto; }
+#category-filter,
+#vinyl-genre-filter { flex: 0 0 auto; }
 
 /* Form controls */
 input, select, button {
@@ -84,6 +86,17 @@ input, select, button {
   padding: 0.55rem 0.75rem;
   background: var(--surface);
   color: var(--text);
+}
+
+/* Custom chevron: the native one hugs the right edge and ignores padding. */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%237a7268' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.8rem center;
+  background-size: 12px 8px;
 }
 
 input:focus, select:focus {
