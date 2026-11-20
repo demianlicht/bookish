@@ -113,6 +113,39 @@ function populateCategoryFilter(books) {
   categoryFilter.value = currentValue;
 }
 
+// ---- Sorting: by first author's last name, then title ----
+
+// Authors whose last name can't be derived from the text. Key = exact author string.
+const LAST_NAME_OVERRIDES = {
+  'Alfred, Lord Tennyson': 'Tennyson',
+};
+
+function authorLastName(author) {
+  if (LAST_NAME_OVERRIDES[author]) return LAST_NAME_OVERRIDES[author];
+
+  // First author only; drop "Name, edited by X" style tails and name suffixes.
+  const first = author
+    .split(/\s+(?:&|and)\s+/)[0]
+    .replace(/,\s*(?:edited|translated|illustrated)\b.*$/i, '')
+    .replace(/,?\s+(?:Jr|Sr|II|III|IV)\.?$/i, '')
+    .trim();
+
+  const words = first.split(/\s+/);
+  const last = words[words.length - 1];
+  const prev = words[words.length - 2];
+  // "Le Guin", "La Fontaine": capitalised prefix belongs to the surname.
+  // Lowercase particles (van, von, de, der...) are ignored.
+  return prev && /^(?:Le|La)$/.test(prev) ? `${prev} ${last}` : last;
+}
+
+function compareBooks(a, b) {
+  return (
+    authorLastName(a.author).localeCompare(authorLastName(b.author), undefined, { sensitivity: 'base' }) ||
+    a.author.localeCompare(b.author) ||
+    a.title.localeCompare(b.title)
+  );
+}
+
 // ---- Rendering ----
 
 function render() {
@@ -145,7 +178,7 @@ function render() {
   const sortedCategories = [...groups.keys()].sort((a, b) => a.localeCompare(b));
 
   for (const category of sortedCategories) {
-    const books = groups.get(category).sort((a, b) => a.title.localeCompare(b.title));
+    const books = groups.get(category).sort(compareBooks);
 
     const section = document.createElement('div');
     section.className = 'category-group';
